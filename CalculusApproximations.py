@@ -3,20 +3,38 @@ from sympy.parsing.sympy_parser import parse_expr
 
 x, y, n = symbols('x y n')
 
-
+'''
+returns the approximation of a differential equation (de) at a given x value
+differential = de that will be approximated
+estimate_at = the x value of the equation that is to be approximated
+step_size = the change of the x value at each step
+initial_x = initial given x value of the equation
+initial_y = initial given y value of the equation
+'''
 def eulers_method(differential, estimate_at, step_size, initial_x, initial_y):
+    #step_of_x is the x value at any given step
     step_of_x = initial_x
+    #step_of_x is the y value at any given step
     step_of_y = initial_y
     while step_of_x < estimate_at:
+        #the the x and y value of each step are subbed into the de
         subbed_in_differential = differential.subs(x, step_of_x)
         subbed_in_differential = subbed_in_differential.subs(y, step_of_y)
+        
+        #step of x and y are updated
         step_of_y = step_of_y + step_size * subbed_in_differential
         step_of_x = step_of_x + step_size
     return step_of_y
 
-
+'''
+returns the approximation of a convergent alternating series
+f = a function that would produce a convergent alternating series
+num_decimal_points = expected precision of approximation
+'''
 def approximate_alternating_series(f, num_decimal_points):
+    #get rid of (-1)**n in the numerator
     f_without_neg_one_to_the_n = f / sympify((-1)**n)
+    #sub in n+1 for all n in the function
     f_of_n_plus_one = f_without_neg_one_to_the_n.subs(n, n+1)
     precision = 1
     for _ in range(num_decimal_points):
@@ -31,15 +49,23 @@ def approximate_alternating_series(f, num_decimal_points):
         approximation = approximation + f.subs(n, term)
     return approximation.evalf()
 
-
+'''
+returns the approximation of an integral
+f = the function whos integral is to be approximated
+lower_bound = the lower bound of the integral
+upper_bound = the upper bound of the integral
+num_intervals = the number of intervales to calculate underneath the curve
+'''
 def simpsons_rule(f, lower_bound, upper_bound, num_intervals):
     approximation = f.subs(x, lower_bound)
     delta_x = (upper_bound - lower_bound) / num_intervals
     this_x_value = lower_bound + delta_x
+    #the second coefficient of the formula is 4
     coefficient = 4
     for _ in range(num_intervals - 1):
         approximation = approximation + coefficient * f.subs(x, this_x_value)
         this_x_value = this_x_value + delta_x
+        #the coefficients of the formula then alternate between 2 and 4 except the last one
         if coefficient == 4:
             coefficient = 2
         else:
