@@ -54,7 +54,7 @@ returns the approximation of an integral
 f = the function whos integral is to be approximated
 lower_bound = the lower bound of the integral
 upper_bound = the upper bound of the integral
-num_intervals = the number of intervales to calculate underneath the curve
+num_intervals = the number of intervals to calculate underneath the curve
 '''
 def simpsons_rule(f, lower_bound, upper_bound, num_intervals):
     approximation = f.subs(x, lower_bound)
