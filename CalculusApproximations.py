@@ -3,15 +3,15 @@ from sympy.parsing.sympy_parser import parse_expr
 
 x, y, n = symbols('x y n')
 
-'''
-returns the approximation of a differential equation (de) at a given x value
-differential = de that will be approximated
-estimate_at = the x value of the equation that is to be approximated
-step_size = the change of the x value at each step
-initial_x = initial given x value of the equation
-initial_y = initial given y value of the equation
-'''
 def eulers_method(differential, estimate_at, step_size, initial_x, initial_y):
+    '''
+    returns the approximation of a differential equation (de) at a given x value
+    differential = de that will be approximated
+    estimate_at = the x value of the equation that is to be approximated
+    step_size = the change of the x value at each step
+    initial_x = initial given x value of the equation
+    initial_y = initial given y value of the equation
+    '''
     #step_of_x is the x value at any given step
     step_of_x = initial_x
     #step_of_x is the y value at any given step
@@ -26,12 +26,12 @@ def eulers_method(differential, estimate_at, step_size, initial_x, initial_y):
         step_of_x = step_of_x + step_size
     return step_of_y
 
-'''
-returns the approximation of a convergent alternating series
-f = a function that would produce a convergent alternating series
-num_decimal_points = expected precision of approximation
-'''
 def approximate_alternating_series(f, num_decimal_points):
+    '''
+    returns the approximation of a convergent alternating series
+    f = a function that would produce a convergent alternating series
+    num_decimal_points = expected precision of approximation
+    '''
     #get rid of (-1)**n in the numerator
     f_without_neg_one_to_the_n = f / sympify((-1)**n)
     #sub in n+1 for all n in the function
@@ -49,14 +49,14 @@ def approximate_alternating_series(f, num_decimal_points):
         approximation = approximation + f.subs(n, term)
     return approximation.evalf()
 
-'''
-returns the approximation of an integral
-f = the function whos integral is to be approximated
-lower_bound = the lower bound of the integral
-upper_bound = the upper bound of the integral
-num_intervals = the number of intervals to calculate underneath the curve
-'''
 def simpsons_rule(f, lower_bound, upper_bound, num_intervals):
+    '''
+    returns the approximation of an integral
+    f = the function whos integral is to be approximated
+    lower_bound = the lower bound of the integral
+    upper_bound = the upper bound of the integral
+    num_intervals = the number of intervals to calculate underneath the curve
+    '''
     approximation = f.subs(x, lower_bound)
     delta_x = (upper_bound - lower_bound) / num_intervals
     this_x_value = lower_bound + delta_x
